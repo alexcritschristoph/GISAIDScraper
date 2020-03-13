@@ -7,7 +7,6 @@
  */
 
 const fs = require('fs');
-const path = require('path');
 const puppeteer = require('puppeteer');
 const util = require('util');
 
@@ -41,16 +40,19 @@ const screenshot = 'gisaid.png';
 
   for (url of urls) {
     id = url.split("/").pop()
-    await page.goto("https://platform.gisaid.org/epi3/start/EPI_ISL/" + url)
-    await page.waitForNavigation({ waitUntil: 'networkidle0' })
-    //await page.waitFor(1000);
-    await page.waitForXPath("//iframe");
-    console.log('Downloading: ' + url)
-    const frame = await page.mainFrame().childFrames()[0]
-    await frame.waitForXPath("//pre");
-    const [lol] = await frame.$x("//pre")
-    const text = await frame.evaluate(element => element.textContent, lol)
-    fs.writeFileSync("fasta/" + id + ".fasta", text)
+    path = "fasta/" + id + ".fasta"
+    if (!fs.existsSync(path)) {
+      await page.goto("https://platform.gisaid.org/epi3/start/EPI_ISL/" + url)
+      await page.waitForNavigation({ waitUntil: 'networkidle0' })
+      //await page.waitFor(1000);
+      await page.waitForXPath("//iframe");
+      console.log('Downloading: ' + url)
+      const frame = await page.mainFrame().childFrames()[0]
+      await frame.waitForXPath("//pre");
+      const [lol] = await frame.$x("//pre")
+      const text = await frame.evaluate(element => element.textContent, lol)
+      fs.writeFileSync("fasta/" + id + ".fasta", text)
+    }
   }
  
   browser.close()

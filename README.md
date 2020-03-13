@@ -23,5 +23,6 @@ cat fasta/*.fasta > sequences.fasta
 sed -i -e 's/^>hCoV-19\//>/g' sequences.fasta
 sed -i -e 's/|.*$//g' sequences.fasta
 sed -i -e 's/> />/g' sequences.fasta
+sed -i -e 's/_*$//g' sequences.fasta
 sed -i -e 's/ /_/g' sequences.fasta
 ```
