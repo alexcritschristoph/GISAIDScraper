@@ -25,3 +25,5 @@ sed -i -e 's/|.*$//g' sequences.fasta
 sed -i -e 's/> />/g' sequences.fasta
 sed -i -e 's/ /_/g' sequences.fasta
 ```
+
+(Note that is using sed on macOS, you might need to make some adjustments on other platforms.)
