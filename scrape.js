@@ -44,7 +44,7 @@ const screenshot = 'gisaid.png';
     if (!fs.existsSync(path)) {
       await page.goto("https://platform.gisaid.org/epi3/start/EPI_ISL/" + url)
       await page.waitForNavigation({ waitUntil: 'networkidle0' })
-      //await page.waitFor(1000);
+      await page.waitFor(2000);
       await page.waitForXPath("//iframe");
       console.log('Downloading: ' + url)
       const frame = await page.mainFrame().childFrames()[0]
