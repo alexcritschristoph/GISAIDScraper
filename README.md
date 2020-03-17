@@ -3,9 +3,15 @@ Requirements:
 * puppeteer
 * metadata.tsv file from ncov repository
 
+To install dependencies:
+
+```bash
+$ npm install .
+```
+
 To run:
 
-```
+```bash
 $ mkdir fasta
 $ GISAID_USER=myuser GISAID_PWD=mypassword node scrape.js
 ```
