@@ -10,16 +10,23 @@ const fs = require('fs');
 const puppeteer = require('puppeteer');
 const util = require('util');
 
+var glob = require("glob")
+
+const files = glob.sync('./fasta/*.fasta');
 
 const file_content = fs.readFileSync("metadata.tsv").toString()
 var x = file_content.split('\n');
+console.log(files);
 
 urls = []
 for (var i=0; i<x.length; i++) {
     y = x[i].split('\t')
     if (i > 0 && y.length > 2) {
       url = y[2].split("_").pop();
-      urls.push(url)
+      id = url.split("/").pop();
+      if ( ! files.includes("./fasta/" +id+'.fasta')){
+        urls.push(url)
+      }        
     }
 }
 
